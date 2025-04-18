@@ -7,19 +7,38 @@
 # Este script fornece uma interface gráfica para gerenciar várias tarefas de administração do Proxmox VE
 # Inclui funções para backup do host, atualização de repositórios, limpeza de LXCs, entre outras operações
 
+# Definição das cores da paleta
+COLOR_GREEN="\033[38;2;83;172;89m"      # #53ac59 - Verde
+COLOR_DARK_GREEN="\033[38;2;59;137;82m"  # #3b8952 - Verde escuro
+COLOR_MOSS="\033[38;2;15;104;75m"       # #0f684b - Verde musgo
+COLOR_TEAL="\033[38;2;3;72;76m"         # #03484c - Azul petróleo
+COLOR_NAVY="\033[38;2;28;35;46m"        # #1c232e - Azul escuro
+COLOR_WHITE="\033[97m"                  # Branco para texto
+COLOR_BOLD="\033[1m"                    # Negrito
+COLOR_RESET="\033[0m"                   # Reset para cor padrão
+BOX_HLINE="━"                           # Linha horizontal para caixas
+BOX_VLINE="┃"                           # Linha vertical para caixas
+BOX_TLCORNER="┏"                        # Canto superior esquerdo
+BOX_TRCORNER="┓"                        # Canto superior direito
+BOX_BLCORNER="┗"                        # Canto inferior esquerdo
+BOX_BRCORNER="┛"                        # Canto inferior direito
+
 # Função para exibir o cabeçalho do programa com arte ASCII
 function header_info {
   clear
-  cat <<"EOF"
-   ____                                    
-  |  _ \ _ __ _____  ___ __ ___   _____  __
-  | |_) | '__/ _ \ \/ / '_ ` _ \ / _ \ \/ /
-  |  __/| | | (_) >  <| | | | | | (_) >  < 
-  |_|   |_|  \___/_/\_\_| |_| |_|\___/_/\_\
-                                           
-  Gerenciador de Ferramentas Proxmox
-
-EOF
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_TLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_TRCORNER}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_GREEN}                                                            ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_GREEN}  ██████╗ ██████╗  ██████╗ ██╗  ██╗███╗   ███╗ ██████╗ ██╗  ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_GREEN}  ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝████╗ ████║██╔═══██╗╚██╗██╔╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_MOSS}  ██████╔╝██████╔╝██║   ██║ ╚███╔╝ ██╔████╔██║██║   ██║ ╚███╔╝   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_MOSS}  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗ ██║╚██╔╝██║██║   ██║ ██╔██╗   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_TEAL}  ██║     ██║  ██║╚██████╔╝██╔╝ ██╗██║ ╚═╝ ██║╚██████╔╝██╔╝ ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_TEAL}  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}                                                            ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}${COLOR_BOLD}             GERENCIADOR DE FERRAMENTAS PROXMOX             ${COLOR_RESET}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}                                                            ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_BLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_BRCORNER}${COLOR_RESET}"
+  echo ""
 }
 
 # Função para backup do host
@@ -79,7 +98,7 @@ function host_backup {
 
   # Exibe informações sobre o backup que será realizado
   header_info
-  echo -e "Isso criará um backup em\e[1;33m $BACKUP_PATH \e[0mpara estes arquivos e diretórios\e[1;33m ${selected_directories[*]} \e[0m"
+  echo -e "${COLOR_WHITE}Isso criará um backup em ${COLOR_GREEN}${COLOR_BOLD}$BACKUP_PATH${COLOR_RESET}${COLOR_WHITE} para estes arquivos e diretórios ${COLOR_GREEN}${COLOR_BOLD}${selected_directories[*]}${COLOR_RESET}"
   read -p "Pressione ENTER para continuar..."
   
   # Executa o backup usando tar
@@ -91,8 +110,8 @@ function host_backup {
   
   # Exibe mensagem de conclusão e aviso sobre armazenamento de backups
   header_info
-  echo -e "\nConcluído"
-  echo -e "\e[1;33m \nUm backup se torna ineficaz quando permanece armazenado no host.\n \e[0m"
+  echo -e "\n${COLOR_GREEN}${COLOR_BOLD}Concluído${COLOR_RESET}"
+  echo -e "${COLOR_MOSS}${COLOR_BOLD}\nUm backup se torna ineficaz quando permanece armazenado no host.${COLOR_RESET}\n"
   sleep 2
 }
 
@@ -100,6 +119,12 @@ function host_backup {
 # Atualiza os repositórios em todos os containers LXC que usam apt
 # Substitui referências de 'tteck/Proxmox' por 'community-scripts/ProxmoxVE'
 function update_repo {
+  header_info
+  echo -e "${COLOR_TEAL}${BOX_TLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_TRCORNER}${COLOR_RESET}"
+  echo -e "${COLOR_TEAL}${BOX_VLINE}${COLOR_WHITE}${COLOR_BOLD}  ATUALIZANDO REPOSITÓRIOS DOS CONTAINERS  ${COLOR_RESET}${COLOR_TEAL}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_TEAL}${BOX_BLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_BRCORNER}${COLOR_RESET}"
+  echo ""
+  
   # Itera sobre todos os containers LXC listados pelo comando 'pct list'
   # NR>1 pula o cabeçalho da saída do comando
   for container in $(pct list | awk '{if(NR>1) print $1}'); do
@@ -108,38 +133,37 @@ function update_repo {
       # Verifica se o arquivo /usr/bin/update existe no container
       if pct exec "$container" -- test -f /usr/bin/update; then
         # Informa que está atualizando o arquivo
-        echo -e "\e[1;34m[Info]\e[0m Atualizando /usr/bin/update no container \e[1;34m$container\e[0m"
+        echo -e "${COLOR_TEAL}[Info]${COLOR_RESET} Atualizando /usr/bin/update no container ${COLOR_GREEN}${COLOR_BOLD}$container${COLOR_RESET}"
         # Executa o comando sed para substituir o repositório antigo pelo novo
         pct exec "$container" -- bash -c "sed -i 's/tteck\\/Proxmox/community-scripts\\/ProxmoxVE/g' /usr/bin/update"
 
         # Verifica se a atualização foi bem-sucedida
         if pct exec "$container" -- grep -q "community-scripts/ProxmoxVE" /usr/bin/update; then
-          echo -e "\e[1;32m[Sucesso]\e[0m /usr/bin/update atualizado em \e[1;34m$container\e[0m.\n"
+          echo -e "${COLOR_GREEN}[Sucesso]${COLOR_RESET} /usr/bin/update atualizado em ${COLOR_GREEN}${COLOR_BOLD}$container${COLOR_RESET}.\n"
         else
-          echo -e "\e[1;31m[Erro]\e[0m /usr/bin/update em \e[1;34m$container\e[0m não pôde ser atualizado.\n"
+          echo -e "${COLOR_NAVY}[Erro]${COLOR_RESET} /usr/bin/update em ${COLOR_GREEN}${COLOR_BOLD}$container${COLOR_RESET} não pôde ser atualizado.\n"
         fi
       else
         # Informa que o arquivo não foi encontrado
-        echo -e "\e[1;31m[Erro]\e[0m /usr/bin/update não encontrado no container \e[1;34m$container\e[0m.\n"
+        echo -e "${COLOR_NAVY}[Erro]${COLOR_RESET} /usr/bin/update não encontrado no container ${COLOR_GREEN}${COLOR_BOLD}$container${COLOR_RESET}.\n"
       fi
     else
       # Informa que está pulando containers que não são baseados em Debian/Ubuntu
-      echo -e "\e[1;34m[Info]\e[1;32m Pulando \e[1;34m$container\e[0m (não é Debian/Ubuntu)\n"
+      echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Pulando ${COLOR_TEAL}${COLOR_BOLD}$container${COLOR_RESET} (não é Debian/Ubuntu)\n"
     fi
   done
 
   # Exibe mensagem de conclusão do processo
-  echo -e "\e[1;32mO processo está completo. Os repositórios foram alterados para community-scripts/ProxmoxVE.\e[0m\n"
+  echo -e "${COLOR_GREEN}${COLOR_BOLD}O processo está completo. Os repositórios foram alterados para community-scripts/ProxmoxVE.${COLOR_RESET}\n"
+  read -p "Pressione ENTER para continuar..."
 }
 
 # Função para limpar LXCs
 # Limpa logs, cache e atualiza listas apt nos containers LXC selecionados
 function clean_lxcs() {
-  BL=$(echo "\033[36m")
-  RD=$(echo "\033[01;31m")
+  # Usando as cores definidas no início do script
+  # Ícone de verificação para uso em mensagens
   CM='\xE2\x9C\x94\033'
-  GN=$(echo "\033[1;92m")
-  CL=$(echo "\033[m")
   header_info
   echo "Carregando..."
   NODE=$(hostname)
@@ -157,19 +181,33 @@ function clean_lxcs() {
     container=$1
     header_info
     name=$(pct exec "$container" hostname)
-    echo -e "${BL}[Info]${GN} Limpando ${name} ${CL} \n"
-    pct exec "$container" -- bash -c "apt-get -y --purge autoremove && apt-get -y autoclean && bash <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/clean.sh) && rm -rf /var/lib/apt/lists/* && apt-get update"
+    echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Limpando ${COLOR_BOLD}${name}${COLOR_RESET} \n"
+    pct exec "$container" -- bash -c "apt-get -y --purge autoremove && apt-get -y autoclean && \
+    # Início do código incorporado (anteriormente baixado via curl)
+    echo 'Limpando logs antigos...' && \
+    find /var/log -type f -regex '.*\.gz$' -delete && \
+    find /var/log -type f -regex '.*\.[0-9]$' -delete && \
+    find /var/log -type f -regex '.*\.old$' -delete && \
+    truncate -s 0 /var/log/*.log && \
+    truncate -s 0 /var/log/**/*.log && \
+    echo 'Limpando cache de pacotes...' && \
+    apt-get clean && \
+    journalctl --rotate && \
+    journalctl --vacuum-time=1d && \
+    echo 'Limpeza concluída!' && \
+    # Fim do código incorporado
+    rm -rf /var/lib/apt/lists/* && apt-get update"
   }
   for container in $(pct list | awk '{if(NR>1) print $1}'); do
     if [[ " ${excluded_containers[@]} " =~ " $container " ]]; then
       header_info
-      echo -e "${BL}[Info]${GN} Pulando ${BL}$container${CL}"
+      echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Pulando ${COLOR_TEAL}${COLOR_BOLD}$container${COLOR_RESET}"
       sleep 1
     else
       os=$(pct config "$container" | awk '/^ostype/ {print $2}')
       if [ "$os" != "debian" ] && [ "$os" != "ubuntu" ]; then
         header_info
-        echo -e "${BL}[Info]${GN} Pulando ${name} ${RD}$container não é Debian ou Ubuntu ${CL} \n"
+        echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Pulando ${COLOR_BOLD}${name}${COLOR_RESET} ${COLOR_NAVY}$container não é Debian ou Ubuntu${COLOR_RESET} \n"
         sleep 1
         continue
       fi
@@ -177,12 +215,12 @@ function clean_lxcs() {
       status=$(pct status "$container")
       template=$(pct config "$container" | grep -q "template:" && echo "true" || echo "false")
       if [ "$template" == "false" ] && [ "$status" == "status: stopped" ]; then
-        echo -e "${BL}[Info]${GN} Iniciando${BL} $container ${CL} \n"
+        echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Iniciando ${COLOR_TEAL}${COLOR_BOLD}$container${COLOR_RESET} \n"
         pct start "$container"
-        echo -e "${BL}[Info]${GN} Aguardando${BL} $container${CL}${GN} iniciar ${CL} \n"
+        echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Aguardando ${COLOR_TEAL}${COLOR_BOLD}$container${COLOR_RESET}${COLOR_GREEN} iniciar${COLOR_RESET} \n"
         sleep 5
         clean_container "$container"
-        echo -e "${BL}[Info]${GN} Desligando${BL} $container ${CL} \n"
+        echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Desligando ${COLOR_TEAL}${COLOR_BOLD}$container${COLOR_RESET} \n"
         pct shutdown "$container" &
       elif [ "$status" == "status: running" ]; then
         clean_container "$container"
@@ -192,7 +230,7 @@ function clean_lxcs() {
 
   wait
   header_info
-  echo -e "${GN} Concluído, containers selecionados foram limpos. ${CL} \n"
+  echo -e "${COLOR_GREEN}${COLOR_BOLD} Concluído, containers selecionados foram limpos.${COLOR_RESET} \n"
 }
 
 # Função para deletar LXCs
@@ -239,20 +277,20 @@ function delete_lxcs() {
     status=$(pct status $container_id)
 
     if [ "$status" == "status: running" ]; then
-      echo -e "${BL}[Info]${GN} Parando container $container_id...${CL}"
+      echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Parando container ${COLOR_BOLD}$container_id${COLOR_RESET}..."
       pct stop $container_id &
       sleep 5
-      echo -e "${BL}[Info]${GN} Container $container_id parado.${CL}"
+      echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Container ${COLOR_BOLD}$container_id${COLOR_RESET} parado."
     fi
 
     if [[ "$DELETE_MODE" == "a" ]]; then
-      echo -e "${BL}[Info]${GN} Excluindo automaticamente o container $container_id...${CL}"
+      echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Excluindo automaticamente o container ${COLOR_BOLD}$container_id${COLOR_RESET}..."
       pct destroy "$container_id" -f
       [ $? -eq 0 ] && echo "Container $container_id excluído." || whiptail --title "Erro" --msgbox "Falha ao excluir o container $container_id." 10 60
     else
       read -p "Excluir container $container_id? (s/N): " CONFIRM
       if [[ "$CONFIRM" =~ ^[Ss]$ ]]; then
-        echo -e "${BL}[Info]${GN} Excluindo container $container_id...${CL}"
+        echo -e "${COLOR_TEAL}[Info]${COLOR_GREEN} Excluindo container ${COLOR_BOLD}$container_id${COLOR_RESET}..."
         pct destroy "$container_id" -f
         [ $? -eq 0 ] && echo "Container $container_id excluído." || whiptail --title "Erro" --msgbox "Falha ao excluir o container $container_id." 10 60
       fi
@@ -265,11 +303,7 @@ function delete_lxcs() {
 # Função para limpar kernels antigos
 # Permite ao usuário selecionar e remover kernels antigos do sistema
 function clean_kernels() {
-  # Variáveis de cor
-  YW="\033[33m"
-  GN="\033[1;92m"
-  RD="\033[01;31m"
-  CL="\033[m"
+  # Usando as cores definidas no início do script
 
   # Detecta o kernel atual
   current_kernel=$(uname -r)
@@ -278,14 +312,14 @@ function clean_kernels() {
   header_info
 
   if [ -z "$available_kernels" ]; then
-    echo -e "${GN}Nenhum kernel antigo detectado. Kernel atual: ${current_kernel}${CL}"
+    echo -e "${COLOR_GREEN}${COLOR_BOLD}Nenhum kernel antigo detectado. Kernel atual: ${current_kernel}${COLOR_RESET}"
     return 0
   fi
 
-  echo -e "${YW}Kernels disponíveis para remoção:${CL}"
+  echo -e "${COLOR_MOSS}Kernels disponíveis para remoção:${COLOR_RESET}"
   echo "$available_kernels" | nl -w 2 -s '. '
 
-  echo -e "\n${YW}Selecione os kernels para remover (separados por vírgula, ex: 1,2):${CL}"
+  echo -e "\n${COLOR_MOSS}Selecione os kernels para remover (separados por vírgula, ex: 1,2):${COLOR_RESET}"
   read -r selected
 
   # Analisa a seleção
@@ -300,33 +334,33 @@ function clean_kernels() {
   done
 
   if [ ${#kernels_to_remove[@]} -eq 0 ]; then
-    echo -e "${RD}Nenhuma seleção válida feita. Saindo.${CL}"
+    echo -e "${COLOR_NAVY}Nenhuma seleção válida feita. Saindo.${COLOR_RESET}"
     return 1
   fi
 
   # Confirma a remoção
-  echo -e "${YW}Kernels a serem removidos:${CL}"
+  echo -e "${COLOR_MOSS}Kernels a serem removidos:${COLOR_RESET}"
   printf "%s\n" "${kernels_to_remove[@]}"
   read -rp "Prosseguir com a remoção? (s/n): " confirm
   if [[ "$confirm" != "s" ]]; then
-    echo -e "${RD}Abortado.${CL}"
+    echo -e "${COLOR_NAVY}Abortado.${COLOR_RESET}"
     return 1
   fi
 
   # Remove os kernels
   for kernel in "${kernels_to_remove[@]}"; do
-    echo -e "${YW}Removendo $kernel...${CL}"
+    echo -e "${COLOR_MOSS}Removendo $kernel...${COLOR_RESET}"
     if apt-get purge -y "$kernel" >/dev/null 2>&1; then
-      echo -e "${GN}Removido com sucesso: $kernel${CL}"
+      echo -e "${COLOR_GREEN}${COLOR_BOLD}Removido com sucesso: $kernel${COLOR_RESET}"
     else
-      echo -e "${RD}Falha ao remover: $kernel. Verifique as dependências.${CL}"
+      echo -e "${COLOR_NAVY}Falha ao remover: $kernel. Verifique as dependências.${COLOR_RESET}"
     fi
   done
 
   # Limpa e atualiza o GRUB
-  echo -e "${YW}Limpando...${CL}"
+  echo -e "${COLOR_MOSS}Limpando...${COLOR_RESET}"
   apt-get autoremove -y >/dev/null 2>&1 && update-grub >/dev/null 2>&1
-  echo -e "${GN}Limpeza e atualização do GRUB concluídas.${CL}"
+  echo -e "${COLOR_GREEN}${COLOR_BOLD}Limpeza e atualização do GRUB concluídas.${COLOR_RESET}"
 }
 
 # Função para criar template LXC
@@ -403,27 +437,24 @@ function create_template() {
 # Configura repositórios e outras opções pós-instalação
 function post_install() {
   header_info
-  RD=$(echo "\033[01;31m")
-  YW=$(echo "\033[33m")
-  GN=$(echo "\033[1;92m")
-  CL=$(echo "\033[m")
+  # Usando as cores definidas no início do script
 
   CHOICE=$(whiptail --backtitle "Gerenciador Proxmox" --title "FONTES" --menu "O gerenciador de pacotes usará as fontes corretas para atualizar e instalar pacotes no seu servidor Proxmox VE.\n \nCorrigir fontes do Proxmox VE?" 14 58 2 \
     "sim" " " \
     "não" " " 3>&2 2>&1 1>&3)
   case $CHOICE in
   sim)
-    echo -e "${YW}Corrigindo fontes do Proxmox VE...${CL}"
+    echo -e "${COLOR_MOSS}Corrigindo fontes do Proxmox VE...${COLOR_RESET}"
     cat <<EOF >/etc/apt/sources.list
 deb http://deb.debian.org/debian bookworm main contrib
 deb http://deb.debian.org/debian bookworm-updates main contrib
 deb http://security.debian.org/debian-security bookworm-security main contrib
 EOF
     echo 'APT::Get::Update::SourceListWarnings::NonFreeFirmware "false";' >/etc/apt/apt.conf.d/no-bookworm-firmware.conf
-    echo -e "${GN}Fontes do Proxmox VE corrigidas.${CL}"
+    echo -e "${COLOR_GREEN}${COLOR_BOLD}Fontes do Proxmox VE corrigidas.${COLOR_RESET}"
     ;;
   não)
-    echo -e "${RD}Selecionou não para corrigir fontes do Proxmox VE${CL}"
+    echo -e "${COLOR_NAVY}Selecionou não para corrigir fontes do Proxmox VE${COLOR_RESET}"
     ;;
   esac
 
@@ -432,14 +463,14 @@ EOF
     "não" " " 3>&2 2>&1 1>&3)
   case $CHOICE in
   sim)
-    echo -e "${YW}Desativando repositório 'pve-enterprise'${CL}"
+    echo -e "${COLOR_MOSS}Desativando repositório 'pve-enterprise'${COLOR_RESET}"
     cat <<EOF >/etc/apt/sources.list.d/pve-enterprise.list
 # deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
 EOF
-    echo -e "${GN}Repositório 'pve-enterprise' desativado${CL}"
+    echo -e "${COLOR_GREEN}${COLOR_BOLD}Repositório 'pve-enterprise' desativado${COLOR_RESET}"
     ;;
   não)
-    echo -e "${RD}Selecionou não para desativar repositório 'pve-enterprise'${CL}"
+    echo -e "${COLOR_NAVY}Selecionou não para desativar repositório 'pve-enterprise'${COLOR_RESET}"
     ;;
   esac
 
@@ -448,14 +479,14 @@ EOF
     "não" " " 3>&2 2>&1 1>&3)
   case $CHOICE in
   sim)
-    echo -e "${YW}Ativando repositório 'pve-no-subscription'${CL}"
+    echo -e "${COLOR_MOSS}Ativando repositório 'pve-no-subscription'${COLOR_RESET}"
     cat <<EOF >/etc/apt/sources.list.d/pve-install-repo.list
 deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
 EOF
-    echo -e "${GN}Repositório 'pve-no-subscription' ativado${CL}"
+    echo -e "${COLOR_GREEN}${COLOR_BOLD}Repositório 'pve-no-subscription' ativado${COLOR_RESET}"
     ;;
   não)
-    echo -e "${RD}Selecionou não para ativar repositório 'pve-no-subscription'${CL}"
+    echo -e "${COLOR_NAVY}Selecionou não para ativar repositório 'pve-no-subscription'${COLOR_RESET}"
     ;;
   esac
 
@@ -464,17 +495,17 @@ EOF
     "não" " " 3>&2 2>&1 1>&3)
   case $CHOICE in
   sim)
-    echo -e "${YW}Atualizando pacotes do sistema...${CL}"
+    echo -e "${COLOR_MOSS}Atualizando pacotes do sistema...${COLOR_RESET}"
     apt-get update
     apt-get -y dist-upgrade
-    echo -e "${GN}Sistema atualizado.${CL}"
+    echo -e "${COLOR_GREEN}${COLOR_BOLD}Sistema atualizado.${COLOR_RESET}"
     ;;
   não)
-    echo -e "${RD}Selecionou não para atualizar o sistema${CL}"
+    echo -e "${COLOR_NAVY}Selecionou não para atualizar o sistema${COLOR_RESET}"
     ;;
   esac
 
-  echo -e "\n${GN}Configuração pós-instalação concluída.${CL}\n"
+  echo -e "\n${COLOR_GREEN}${COLOR_BOLD}Configuração pós-instalação concluída.${COLOR_RESET}\n"
 }
 
 # Menu principal
@@ -484,7 +515,7 @@ while true; do
   header_info
   # Cria um menu interativo com whiptail e armazena a opção selecionada
   # O menu tem 9 opções numeradas de 1 a 8
-  OPTION=$(whiptail --backtitle "Gerenciador Proxmox" --title "Menu Principal" --menu "
+  OPTION=$(whiptail --backtitle "${COLOR_DARK_GREEN}Gerenciador Proxmox${COLOR_RESET}" --title "${COLOR_GREEN}Menu Principal${COLOR_RESET}" --menu "
   Selecione uma opção:" 20 60 9 \
     "1" "Backup do Host" \
     "2" "Atualizar Repositórios" \
@@ -502,7 +533,7 @@ while true; do
       # Loop que continua até o usuário escolher não fazer mais backups
       while true; do
         # Exibe uma caixa de diálogo de confirmação
-        if (whiptail --backtitle "Gerenciador Proxmox" --title "Backup do Host Proxmox" --yesno "Isso criará backups de arquivos e diretórios específicos. Continuar?" 10 88); then
+        if (whiptail --backtitle "${COLOR_DARK_GREEN}Gerenciador Proxmox${COLOR_RESET}" --title "${COLOR_GREEN}Backup do Host Proxmox${COLOR_RESET}" --yesno "Isso criará backups de arquivos e diretórios específicos. Continuar?" 10 88); then
           # Se o usuário confirmar, chama a função de backup
           host_backup
         else
