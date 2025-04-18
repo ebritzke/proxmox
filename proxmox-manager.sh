@@ -26,18 +26,28 @@ BOX_BRCORNER="┛"                        # Canto inferior direito
 # Função para exibir o cabeçalho do programa com arte ASCII
 function header_info {
   clear
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_TLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_TRCORNER}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_GREEN}                                                            ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_GREEN}  ██████╗ ██████╗  ██████╗ ██╗  ██╗███╗   ███╗ ██████╗ ██╗  ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_GREEN}  ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝████╗ ████║██╔═══██╗╚██╗██╔╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_MOSS}  ██████╔╝██████╔╝██║   ██║ ╚███╔╝ ██╔████╔██║██║   ██║ ╚███╔╝   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_MOSS}  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗ ██║╚██╔╝██║██║   ██║ ██╔██╗   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_TEAL}  ██║     ██║  ██║╚██████╔╝██╔╝ ██╗██║ ╚═╝ ██║╚██████╔╝██╔╝ ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_TEAL}  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}                                                            ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}${COLOR_BOLD}             GERENCIADOR DE FERRAMENTAS PROXMOX             ${COLOR_RESET}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}                                                            ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_BLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_BRCORNER}${COLOR_RESET}"
+  local header_width=60
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_TLCORNER}$(printf "%${header_width}s" "" | tr " " "${BOX_HLINE}")${BOX_TRCORNER}${COLOR_RESET}"
+  # Centraliza o conteúdo dentro da caixa
+  local content_padding="$(printf "%12s" "")"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_GREEN}                                    ${content_padding}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_GREEN}  ██████╗ ██████╗  ██████╗ ██╗  ██╗███╗   ███╗ ██████╗ ██╗  ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_GREEN}  ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝████╗ ████║██╔═══██╗╚██╗██╔╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_MOSS}  ██████╔╝██████╔╝██║   ██║ ╚███╔╝ ██╔████╔██║██║   ██║ ╚███╔╝   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_MOSS}  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗ ██║╚██╔╝██║██║   ██║ ██╔██╗   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_TEAL}  ██║     ██║  ██║╚██████╔╝██╔╝ ██╗██║ ╚═╝ ██║╚██████╔╝██╔╝ ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_TEAL}  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_WHITE}                                    ${content_padding}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  
+  # Centraliza o título
+  local title="GERENCIADOR DE FERRAMENTAS PROXMOX"
+  local title_length=${#title}
+  local spaces=$(( (header_width - title_length) / 2 ))
+  local title_padding="$(printf "%${spaces}s" "")"
+  
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}${COLOR_BOLD}${title_padding}${title}${title_padding}${COLOR_RESET}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_WHITE}                                    ${content_padding}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_BLCORNER}$(printf "%${header_width}s" "" | tr " " "${BOX_HLINE}")${BOX_BRCORNER}${COLOR_RESET}"
   echo ""
 }
 
@@ -120,9 +130,14 @@ function host_backup {
 # Substitui referências de 'tteck/Proxmox' por 'community-scripts/ProxmoxVE'
 function update_repo {
   header_info
-  echo -e "${COLOR_TEAL}${BOX_TLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_TRCORNER}${COLOR_RESET}"
-  echo -e "${COLOR_TEAL}${BOX_VLINE}${COLOR_WHITE}${COLOR_BOLD}  ATUALIZANDO REPOSITÓRIOS DOS CONTAINERS  ${COLOR_RESET}${COLOR_TEAL}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_TEAL}${BOX_BLCORNER}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_HLINE}${BOX_BRCORNER}${COLOR_RESET}"
+  # Cria uma caixa com bordas para o título
+  local title_width=42
+  local padding=$(( (title_width - 38) / 2 ))
+  local left_padding="$(printf "%${padding}s" "")"
+  
+  echo -e "${COLOR_TEAL}${BOX_TLCORNER}$(printf "%${title_width}s" "" | tr " " "${BOX_HLINE}")${BOX_TRCORNER}${COLOR_RESET}"
+  echo -e "${COLOR_TEAL}${BOX_VLINE}${COLOR_WHITE}${COLOR_BOLD}${left_padding}ATUALIZANDO REPOSITÓRIOS DOS CONTAINERS${left_padding}${COLOR_RESET}${COLOR_TEAL}${BOX_VLINE}${COLOR_RESET}"
+  echo -e "${COLOR_TEAL}${BOX_BLCORNER}$(printf "%${title_width}s" "" | tr " " "${BOX_HLINE}")${BOX_BRCORNER}${COLOR_RESET}"
   echo ""
   
   # Itera sobre todos os containers LXC listados pelo comando 'pct list'
@@ -515,8 +530,23 @@ while true; do
   header_info
   # Cria um menu interativo com whiptail e armazena a opção selecionada
   # O menu tem 9 opções numeradas de 1 a 8
-  OPTION=$(whiptail --backtitle "${COLOR_DARK_GREEN}Gerenciador Proxmox${COLOR_RESET}" --title "${COLOR_GREEN}Menu Principal${COLOR_RESET}" --menu "
-  Selecione uma opção:" 20 60 9 \
+  # Configuração de cores para o whiptail, usando as cores da paleta definida
+  export NEWT_COLORS="root=,${COLOR_NAVY#\033[} \
+                     title=${COLOR_WHITE#\033[},${COLOR_DARK_GREEN#\033[} \
+                     border=${COLOR_DARK_GREEN#\033[},${COLOR_DARK_GREEN#\033[} \
+                     window=${COLOR_WHITE#\033[},${COLOR_TEAL#\033[} \
+                     shadow=,${COLOR_NAVY#\033[} \
+                     button=${COLOR_WHITE#\033[},${COLOR_GREEN#\033[} \
+                     actbutton=${COLOR_WHITE#\033[},${COLOR_MOSS#\033[} \
+                     checkbox=${COLOR_MOSS#\033[},${COLOR_WHITE#\033[} \
+                     actcheckbox=${COLOR_GREEN#\033[},${COLOR_WHITE#\033[} \
+                     entry=${COLOR_WHITE#\033[},${COLOR_TEAL#\033[} \
+                     label=${COLOR_MOSS#\033[},${COLOR_WHITE#\033[} \
+                     listbox=${COLOR_WHITE#\033[},${COLOR_TEAL#\033[} \
+                     actlistbox=${COLOR_WHITE#\033[},${COLOR_GREEN#\033[} \
+                     sellistbox=${COLOR_WHITE#\033[},${COLOR_MOSS#\033[}"
+  # Menu principal com layout melhorado e mais espaço para as opções
+  OPTION=$(whiptail --backtitle "Gerenciador Proxmox" --title "Menu Principal" --menu "\nSelecione uma opção:\n" 20 70 9 \
     "1" "Backup do Host" \
     "2" "Atualizar Repositórios" \
     "3" "Limpar LXCs" \
@@ -533,7 +563,7 @@ while true; do
       # Loop que continua até o usuário escolher não fazer mais backups
       while true; do
         # Exibe uma caixa de diálogo de confirmação
-        if (whiptail --backtitle "${COLOR_DARK_GREEN}Gerenciador Proxmox${COLOR_RESET}" --title "${COLOR_GREEN}Backup do Host Proxmox${COLOR_RESET}" --yesno "Isso criará backups de arquivos e diretórios específicos. Continuar?" 10 88); then
+        if (whiptail --backtitle "Gerenciador Proxmox" --title "Backup do Host Proxmox" --yesno "Isso criará backups de arquivos e diretórios específicos. Continuar?" 10 88); then
           # Se o usuário confirmar, chama a função de backup
           host_backup
         else
@@ -612,7 +642,7 @@ while true; do
     8)
       # Exibe o cabeçalho e uma mensagem de saída
       header_info
-      echo "Saindo..."
+      echo "Vlw, flw..."
       # Encerra o script com código de saída 0 (sucesso)
       exit 0
       ;;
