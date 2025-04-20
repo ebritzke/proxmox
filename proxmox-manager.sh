@@ -13,7 +13,7 @@ COLOR_DARK_GREEN="\033[32;1m"           # Verde fósforo brilhante
 COLOR_MOSS="\033[38;5;34m"              # Verde alternativo
 COLOR_TEAL="\033[38;5;36m"              # Verde azulado
 COLOR_NAVY="\033[38;5;22m"              # Verde escuro
-COLOR_WHITE="\033[32m"                  # Texto em verde (não branco)
+COLOR_WHITE="\033[37;1m"                # Texto em branco brilhante
 COLOR_BOLD="\033[1m"                    # Negrito
 COLOR_RESET="\033[0m"                   # Reset para cor padrão
 BOX_HLINE="━"                           # Linha horizontal para caixas
@@ -30,9 +30,8 @@ echo -e "\033[40m"                      # Fundo preto
 function header_info {
   clear
   local header_width=60
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_TLCORNER}$(printf "%${header_width}s" "" | tr " " "${BOX_HLINE}")${BOX_TRCORNER}${COLOR_RESET}"
   
-  # Logo Proxmox sem barras laterais
+  # Logo Proxmox sem bordas
   echo -e "${COLOR_GREEN}  ██████╗ ██████╗  ██████╗ ██╗  ██╗███╗   ███╗ ██████╗ ██╗  ██╗  ${COLOR_RESET}"
   echo -e "${COLOR_GREEN}  ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝████╗ ████║██╔═══██╗╚██╗██╔╝  ${COLOR_RESET}"
   echo -e "${COLOR_MOSS}  ██████╔╝██████╔╝██║   ██║ ╚███╔╝ ██╔████╔██║██║   ██║ ╚███╔╝   ${COLOR_RESET}"
@@ -47,10 +46,8 @@ function header_info {
   local spaces=$(( (header_width - title_length) / 2 ))
   local title_padding="$(printf "%${spaces}s" "")"
   
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${COLOR_WHITE}${COLOR_BOLD}${title_padding}${title}${title_padding}${COLOR_RESET}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_WHITE}                                    ${content_padding}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_BLCORNER}$(printf "%${header_width}s" "" | tr " " "${BOX_HLINE}")${BOX_BRCORNER}${COLOR_RESET}"
-  echo ""
+  echo -e "${COLOR_WHITE}${COLOR_BOLD}${title_padding}${title}${title_padding}${COLOR_RESET}"
+  echo -e ""
 }
 
 # Função para backup do host
@@ -155,14 +152,8 @@ function host_backup {
 # Substitui referências de 'tteck/Proxmox' por 'community-scripts/ProxmoxVE'
 function update_repo {
   header_info
-  # Cria uma caixa com bordas para o título
-  local title_width=42
-  local padding=$(( (title_width - 38) / 2 ))
-  local left_padding="$(printf "%${padding}s" "")"
-  
-  echo -e "${COLOR_TEAL}${BOX_TLCORNER}$(printf "%${title_width}s" "" | tr " " "${BOX_HLINE}")${BOX_TRCORNER}${COLOR_RESET}"
-  echo -e "${COLOR_TEAL}${BOX_VLINE}${COLOR_WHITE}${COLOR_BOLD}${left_padding}ATUALIZANDO REPOSITÓRIOS DOS CONTAINERS${left_padding}${COLOR_RESET}${COLOR_TEAL}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_TEAL}${BOX_BLCORNER}$(printf "%${title_width}s" "" | tr " " "${BOX_HLINE}")${BOX_BRCORNER}${COLOR_RESET}"
+  # Título sem bordas
+  echo -e "${COLOR_WHITE}${COLOR_BOLD}                ATUALIZANDO REPOSITÓRIOS DOS CONTAINERS                ${COLOR_RESET}"
   echo ""
   
   # Itera sobre todos os containers LXC listados pelo comando 'pct list'
