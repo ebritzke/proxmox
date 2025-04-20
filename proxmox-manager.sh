@@ -7,13 +7,13 @@
 # Este script fornece uma interface gráfica para gerenciar várias tarefas de administração do Proxmox VE
 # Inclui funções para backup do host, atualização de repositórios, limpeza de LXCs, entre outras operações
 
-# Definição das cores da paleta
-COLOR_GREEN="\033[38;2;83;172;89m"      # #53ac59 - Verde
-COLOR_DARK_GREEN="\033[38;2;59;137;82m"  # #3b8952 - Verde escuro
-COLOR_MOSS="\033[38;2;15;104;75m"       # #0f684b - Verde musgo
-COLOR_TEAL="\033[38;2;3;72;76m"         # #03484c - Azul petróleo
-COLOR_NAVY="\033[38;2;28;35;46m"        # #1c232e - Azul escuro
-COLOR_WHITE="\033[97m"                  # Branco para texto
+# Definição das cores da paleta (estilo monitor de fósforo)
+COLOR_GREEN="\033[32m"                  # Verde fósforo
+COLOR_DARK_GREEN="\033[32;1m"           # Verde fósforo brilhante
+COLOR_MOSS="\033[38;5;34m"              # Verde alternativo
+COLOR_TEAL="\033[38;5;36m"              # Verde azulado
+COLOR_NAVY="\033[38;5;22m"              # Verde escuro
+COLOR_WHITE="\033[32m"                  # Texto em verde (não branco)
 COLOR_BOLD="\033[1m"                    # Negrito
 COLOR_RESET="\033[0m"                   # Reset para cor padrão
 BOX_HLINE="━"                           # Linha horizontal para caixas
@@ -23,21 +23,23 @@ BOX_TRCORNER="┓"                        # Canto superior direito
 BOX_BLCORNER="┗"                        # Canto inferior esquerdo
 BOX_BRCORNER="┛"                        # Canto inferior direito
 
+# Define o fundo preto para toda a aplicação
+echo -e "\033[40m"                      # Fundo preto
+
 # Função para exibir o cabeçalho do programa com arte ASCII
 function header_info {
   clear
   local header_width=60
   echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_TLCORNER}$(printf "%${header_width}s" "" | tr " " "${BOX_HLINE}")${BOX_TRCORNER}${COLOR_RESET}"
-  # Centraliza o conteúdo dentro da caixa
-  local content_padding="$(printf "%12s" "")"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_GREEN}                                    ${content_padding}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_GREEN}  ██████╗ ██████╗  ██████╗ ██╗  ██╗███╗   ███╗ ██████╗ ██╗  ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_GREEN}  ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝████╗ ████║██╔═══██╗╚██╗██╔╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_MOSS}  ██████╔╝██████╔╝██║   ██║ ╚███╔╝ ██╔████╔██║██║   ██║ ╚███╔╝   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_MOSS}  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗ ██║╚██╔╝██║██║   ██║ ██╔██╗   ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_TEAL}  ██║     ██║  ██║╚██████╔╝██╔╝ ██╗██║ ╚═╝ ██║╚██████╔╝██╔╝ ██╗  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_TEAL}  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝  ${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
-  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}${content_padding}${COLOR_WHITE}                                    ${content_padding}${COLOR_DARK_GREEN}${COLOR_BOLD}${BOX_VLINE}${COLOR_RESET}"
+  
+  # Logo Proxmox sem barras laterais
+  echo -e "${COLOR_GREEN}  ██████╗ ██████╗  ██████╗ ██╗  ██╗███╗   ███╗ ██████╗ ██╗  ██╗  ${COLOR_RESET}"
+  echo -e "${COLOR_GREEN}  ██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝████╗ ████║██╔═══██╗╚██╗██╔╝  ${COLOR_RESET}"
+  echo -e "${COLOR_MOSS}  ██████╔╝██████╔╝██║   ██║ ╚███╔╝ ██╔████╔██║██║   ██║ ╚███╔╝   ${COLOR_RESET}"
+  echo -e "${COLOR_MOSS}  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗ ██║╚██╔╝██║██║   ██║ ██╔██╗   ${COLOR_RESET}"
+  echo -e "${COLOR_TEAL}  ██║     ██║  ██║╚██████╔╝██╔╝ ██╗██║ ╚═╝ ██║╚██████╔╝██╔╝ ██╗  ${COLOR_RESET}"
+  echo -e "${COLOR_TEAL}  ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝  ${COLOR_RESET}"
+  echo -e ""
   
   # Centraliza o título
   local title="GERENCIADOR DE FERRAMENTAS PROXMOX"
@@ -65,13 +67,18 @@ function host_backup {
   # Solicita ao usuário o diretório onde o backup será salvo
   # Se o usuário cancelar (pressionar ESC), a função retorna
   # Se nenhum valor for fornecido, usa /root/ como padrão
-  BACKUP_PATH=$(whiptail --backtitle "Gerenciador Proxmox" --inputbox "\nPadrão: /root/\nEx: /mnt/backups/" 11 68 --title "Diretório para backup:" 3>&1 1>&2 2>&3) || return
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}=== Diretório para backup: ===${COLOR_RESET}"
+  echo -e "Padrão: /root/"
+  echo -e "Ex: /mnt/backups/"
+  read -p "Digite o caminho: " BACKUP_PATH
   BACKUP_PATH="${BACKUP_PATH:-/root/}"
 
   # Solicita ao usuário o diretório de trabalho a ser analisado
-  # Se o usuário cancelar, a função retorna
   # Se nenhum valor for fornecido, usa /etc/ como padrão
-  DIR=$(whiptail --backtitle "Gerenciador Proxmox" --inputbox "\nPadrão: /etc/\nEx: /root/, /var/lib/pve-cluster/" 11 68 --title "Diretório de trabalho:" 3>&1 1>&2 2>&3) || return
+  echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}=== Diretório de trabalho: ===${COLOR_RESET}"
+  echo -e "Padrão: /etc/"
+  echo -e "Ex: /root/, /var/lib/pve-cluster/"
+  read -p "Digite o caminho: " DIR
   DIR="${DIR:-/etc/}"
 
   # Converte barras (/) em traços (-) para usar no nome do arquivo
@@ -95,9 +102,27 @@ function host_backup {
   local HOST_BACKUP
   while [ -z "${HOST_BACKUP:+x}" ]; do
     # Exibe o menu de seleção e armazena as escolhas do usuário
-    # Se o usuário cancelar, a função retorna
-    HOST_BACKUP=$(whiptail --backtitle "Backup do Host Proxmox" --title "Trabalhando no diretório ${DIR}" --checklist \
-      "\nSelecione os arquivos/diretórios para backup:\n" 16 $(((${#DIRNAME} + 2) + 88)) 6 "${CTID_MENU[@]}" 3>&1 1>&2 2>&3) || return
+    header_info
+    echo -e "${COLOR_DARK_GREEN}${COLOR_BOLD}=== Trabalhando no diretório ${DIR} ===${COLOR_RESET}"
+    echo -e "\nSelecione os arquivos/diretórios para backup (digite os números separados por espaço):\n"
+    
+    # Exibe os itens disponíveis
+    local i=1
+    local item_map=()
+    for ((j=0; j<${#CTID_MENU[@]}; j+=3)); do
+      echo -e "$i) ${CTID_MENU[j]}"
+      item_map[$i]=${CTID_MENU[j]}
+      ((i++))
+    done
+    
+    read -p "Sua seleção: " selections
+    
+    # Processa as seleções
+    for num in $selections; do
+      if [[ $num =~ ^[0-9]+$ ]] && [ $num -ge 1 ] && [ $num -lt $i ]; then
+        HOST_BACKUP="${HOST_BACKUP} ${item_map[$num]}"
+      fi
+    done
 
     # Processa cada item selecionado e adiciona ao array de diretórios selecionados
     # Remove as aspas duplas da saída do whiptail
