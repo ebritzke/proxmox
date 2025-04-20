@@ -16,12 +16,6 @@ COLOR_NAVY="\033[38;5;22m"              # Verde escuro
 COLOR_WHITE="\033[37;1m"                # Texto em branco brilhante
 COLOR_BOLD="\033[1m"                    # Negrito
 COLOR_RESET="\033[0m"                   # Reset para cor padrão
-BOX_HLINE="━"                           # Linha horizontal para caixas
-BOX_VLINE="┃"                           # Linha vertical para caixas
-BOX_TLCORNER="┏"                        # Canto superior esquerdo
-BOX_TRCORNER="┓"                        # Canto superior direito
-BOX_BLCORNER="┗"                        # Canto inferior esquerdo
-BOX_BRCORNER="┛"                        # Canto inferior direito
 
 # Define o fundo preto para toda a aplicação
 echo -e "\033[40m"                      # Fundo preto
